@@ -56,10 +56,11 @@ async function main() {
             console.log('@@@@@@@@@@@@  Library Books Information  @@@@@@@@@@@@');
             data.forEach(element => {
                 console.log(" ");
-                console.log('BookId: '+element.Key);
+                console.log('BoohId: '+element.Key);
                 console.log('Book Title: '+element.Record.title);
                 console.log('Author: '+element.Record.author);
                 console.log('Publisher: '+element.Record.publisher);
+                console.log('\n');
                 
            });
 

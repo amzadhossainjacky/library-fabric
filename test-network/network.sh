@@ -414,7 +414,7 @@ function networkDown() {
 
 
     # remove channel and script artifacts
-    rm -rf channel-artifacts log.txt fabcar.tar.gz fabcar
+    rm -rf channel-artifacts log.txt library.tar.gz library
 
   fi
 }
