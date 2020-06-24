@@ -32,29 +32,31 @@ class Library extends Contract {
         }
         console.info('============= END : Initialize Ledger ===========');
     }
-/* 
-    async queryCar(ctx, carNumber) {
-        const carAsBytes = await ctx.stub.getState(carNumber); // get the car from chaincode state
-        if (!carAsBytes || carAsBytes.length === 0) {
-            throw new Error(`${carNumber} does not exist`);
-        }
-        console.log(carAsBytes.toString());
-        return carAsBytes.toString();
-    }
- */
-    async createBook(ctx, bookNumber, title, author, publisher) {
 
-        const car = {
+    //all query
+
+    async searchBook(ctx, bookId) {
+        const bookAsBytes = await ctx.stub.getState(bookId); // get book from chaincode state
+        if (!bookAsBytes || bookAsBytes.length === 0) {
+            throw new Error(`${bookId} does not exist`);
+        }
+        console.log(bookAsBytes.toString());
+        return bookAsBytes.toString();
+    }
+
+    async createBook(ctx, bookId, title, author, publisher) {
+
+        const book= {
             title,
             docType: 'book',
             author,
             publisher,
         };
 
-        await ctx.stub.putState(bookNumber, Buffer.from(JSON.stringify(book)));
+        await ctx.stub.putState(bookId, Buffer.from(JSON.stringify(book)));
     }
 
-    async queryAllBooks(ctx) {
+    async getAllBooks(ctx) {
         const startKey = '';
         const endKey = '';
         const allResults = [];
@@ -72,22 +74,18 @@ class Library extends Contract {
         console.info(allResults);
         return JSON.stringify(allResults);
     }
-    
-/* 
-    async changeCarOwner(ctx, carNumber, newOwner) {
-        console.info('============= START : changeCarOwner ===========');
 
-        const carAsBytes = await ctx.stub.getState(carNumber); // get the car from chaincode state
-        if (!carAsBytes || carAsBytes.length === 0) {
-            throw new Error(`${carNumber} does not exist`);
+    async changeAuthor(ctx, bookId, newAuthor) {
+
+        const bookAsBytes = await ctx.stub.getState(bookId); // get book from chaincode state
+        if (!bookAsBytes || bookAsBytes.length === 0) {
+            throw new Error(`${bookAsBytes} does not exist`);
         }
-        const car = JSON.parse(carAsBytes.toString());
-        car.owner = newOwner;
+        const book = JSON.parse(bookAsBytes.toString());
+        book.author = newAuthor;
 
-        await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(car)));
-        console.info('============= END : changeCarOwner ===========');
+        await ctx.stub.putState(bookId, Buffer.from(JSON.stringify(book)));
     }
- */
 }
 
 

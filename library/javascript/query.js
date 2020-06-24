@@ -11,7 +11,7 @@ const path = require('path');
 const fs = require('fs');
 
 
-async function main() {
+async function main(query) {
     try {
         // load the network configuration
         const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
@@ -46,25 +46,24 @@ async function main() {
         //const result = await contract.evaluateTransaction('queryAllCars');
         //console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
-       // if(query == 'viewAllCars'){
+        if(query == 'viewAllBooks'){
 
             //query results
-            const result = await contract.evaluateTransaction('queryAllBooks');
+            const result = await contract.evaluateTransaction('getAllBooks');
             const data = JSON.parse(result.toString());
 
             console.log('\n');
             console.log('@@@@@@@@@@@@  Library Books Information  @@@@@@@@@@@@');
             data.forEach(element => {
                 console.log(" ");
-                console.log('BoohId: '+element.Key);
+                console.log('Bookd: '+element.Key);
                 console.log('Book Title: '+element.Record.title);
                 console.log('Author: '+element.Record.author);
                 console.log('Publisher: '+element.Record.publisher);
-                console.log('\n');
-                
+                console.log(" ");   
            });
 
-       // }
+        }
 
         // Disconnect from the gateway.
         await gateway.disconnect();
@@ -75,4 +74,6 @@ async function main() {
     }
 }
 
-main();
+//main();
+
+module.exports = main;
